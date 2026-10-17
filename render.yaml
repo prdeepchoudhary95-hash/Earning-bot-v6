@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: sxearningbot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    plan: free
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sxearningbot-db
+          property: connectionString
+      - key: ADMIN_IDS
+        sync: false
+      - key: BOT_NAME
+        value: SX Earning Bot
+      - key: SUPPORT_USERNAME
+        value: ""
+      - key: MIN_WITHDRAWAL
+        value: "100"
+      - key: WEBHOOK_SECRET
+        generateValue: true
+databases:
+  - name: sxearningbot-db
+    plan: free
